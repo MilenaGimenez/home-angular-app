@@ -36,9 +36,15 @@ export class HomeComponent {
       housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
     );
   }
-
+  //antes con la lista, ahora json
+  // constructor() {
+  //   this.housingLocationList = this.housingService.getAllHousingLocations();
+  //   this.filteredLocationList = this.housingLocationList;
+  // }
   constructor() {
-    this.housingLocationList = this.housingService.getAllHousingLocations();
-    this.filteredLocationList = this.housingLocationList;
+    this.housingService.getAllHousingLocations().then((housingLocationList: HousingLocation[]) => {
+      this.housingLocationList = housingLocationList;
+      this.filteredLocationList = housingLocationList;
+    });
   }
 }

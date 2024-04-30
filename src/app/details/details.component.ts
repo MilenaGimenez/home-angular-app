@@ -56,16 +56,31 @@ export class DetailsComponent {
     email: new FormControl('')
   });
 
-  constructor() {
-    const housingLocationId = Number(this.route.snapshot.params['id']);
-    this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
-  }
+  //antes con la lista, ahora json
+  //   constructor() {
+  //     const housingLocationId = Number(this.route.snapshot.params['id']);
+  //     this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
+  //   }
 
-  submitApplication() { //para que se pueda clickar el form, btn
-  this.housingService.submitApplication(
-    this.applyForm.value.firstName ?? '',
-    this.applyForm.value.lastName ?? '',
-    this.applyForm.value.email ?? ''
-  );
-}
+  //   submitApplication() { //para que se pueda clickar el form, btn
+  //   this.housingService.submitApplication(
+  //     this.applyForm.value.firstName ?? '',
+  //     this.applyForm.value.lastName ?? '',
+  //     this.applyForm.value.email ?? ''
+  //   );
+  // }
+    submitApplication() { 
+    this.housingService.submitApplication(
+      this.applyForm.value.firstName ?? '',
+      this.applyForm.value.lastName ?? '',
+      this.applyForm.value.email ?? ''
+    );
+  }
+  
+  constructor() {
+    const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
+    this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
+      this.housingLocation = housingLocation;
+    });    
+  }
 }
